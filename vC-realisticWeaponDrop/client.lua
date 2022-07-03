@@ -57,7 +57,7 @@ RegisterNetEvent('vC-realtisticWeaponDrop:dropweapon', function(itemname, info, 
 
     local pickup = CreatePickupRotate(GetPickupHashFromWeapon(weaponHash), newpos.x, newpos.y, newpos.z, 0, 0, 0, 8, 1, 1, true, GetHashKey(weaponHash))
     local apos = GetPickupCoords(pickup)
-    print('2 telefon bir bed biç')
+
     local label = QBCore.Shared.Items[itemname].label
     dropTable[info.serie] = {pos = apos, name = itemname, info = info, pickupkey = pickup, label = label}
 end)
