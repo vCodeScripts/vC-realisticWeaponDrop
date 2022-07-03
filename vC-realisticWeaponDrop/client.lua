@@ -24,7 +24,7 @@ Citizen.CreateThread(function()
                 sleep = 0
                 if distance < vCode.PickupDistance then
                     QBCore.Functions.DrawText3D(v.pos.x,v.pos.y, v.pos.z, vCode.Text.h..' '..vCode.Text.pickup..' ['..v.label..']' )    
-                    if IsControlJustPressed(0, 74) then
+                    if IsControlJustPressed(0, vCode.Key) then
                         local pickupB = CanPickup()
                         if pickupB == false then 
                             Anim(v.info, v.name, k)
@@ -81,9 +81,15 @@ AddEventHandler('baseevents:onPlayerDied', function()
     if haveTwoScriptsConrol['as'] == nil then 
         local PlayerData = QBCore.Functions.GetPlayerData()
         local Items = PlayerData.items
-    
-        if currweap ~= false then
-    
+        CanDrop = true
+        for k,v in pairs(vCode.BlacklistedWeapons) do 
+            if GetHashKey(v) == weaponHash then 
+                CanDrop = false
+                break
+            end
+        end
+        if currweap ~= false and CanDrop then
+            
             for k,v in pairs(Items) do
     
                 if QBCore.Shared.SplitStr(v.name, "_")[1] == "weapon" and GetHashKey(v.name) == weaponHash  then
