@@ -47,21 +47,21 @@ function Anim(info,name,key)
         ClearPedTasksImmediately(PlayerPedId())
         TriggerServerEvent('vC-realsticWeaponDrop:server:removeforEveryone', name, info, key)
     end
+end
+RegisterNetEvent('vC-realsticWeaponDrop:client:removeforEveryone', function(serino)
+    local key = dropTable[serino].pickupkey
+    RemovePickup(key)
+    dropTable[serino] = nil
+end)
 
-    RegisterNetEvent('vC-realsticWeaponDrop:client:removeforEveryone', function(serino)
-        local key = dropTable[serino].pickupkey
-        RemovePickup(key)
-        dropTable[serino] = nil
-    end)
+RegisterNetEvent('vC-realtisticWeaponDrop:dropweapon', function(itemname, info, weaponHash,newpos)
 
-    RegisterNetEvent('vC-realtisticWeaponDrop:dropweapon', function(itemname, info, weaponHash,newpos)
+    local pickup = CreatePickupRotate(GetPickupHashFromWeapon(weaponHash), newpos.x, newpos.y, newpos.z, 0, 0, 0, 8, 1, 1, true, GetHashKey(weaponHash))
+    local apos = GetPickupCoords(pickup)
 
-        local pickup = CreatePickupRotate(GetPickupHashFromWeapon(weaponHash), newpos.x, newpos.y, newpos.z, 0, 0, 0, 8, 1, 1, true, GetHashKey(weaponHash))
-        local apos = GetPickupCoords(pickup)
-
-        local label = QBCore.Shared.Items[itemname].label
-        dropTable[info.serie] = {pos = apos, name = itemname, info = info, pickupkey = pickup, label = label}
-    end
+    local label = QBCore.Shared.Items[itemname].label
+    dropTable[info.serie] = {pos = apos, name = itemname, info = info, pickupkey = pickup, label = label}
+    
 end)
 
 haveTwoScriptsConrol = {}
