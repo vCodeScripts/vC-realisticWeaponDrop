@@ -5,6 +5,13 @@ local pos = nil
 
 --- Main Thread To Make It All Work
 
+function CanPickup()
+  if IsEntityDead(PlayerPedId()) then return true end 
+  if IsPedFatallyInjured(PlayerPedId()) then return true end 
+  if GetEntityHealth(PlayerPedId()) == 0 then return true end 
+  return false 
+end
+
 Citizen.CreateThread(function()
     sleep = 400
     while true do
@@ -18,7 +25,10 @@ Citizen.CreateThread(function()
                 if distance < vCode.PickupDistance then
                     QBCore.Functions.DrawText3D(v.pos.x,v.pos.y, v.pos.z, vCode.Text.h..' '..vCode.Text.pickup..' ['..v.label..']' )    
                     if IsControlJustPressed(0, 74) then
-                        Anim(v.info, v.name, k)
+                        local pickupB = CanPickup()
+                        if pickupB == false then 
+                            Anim(v.info, v.name, k)
+                        end
                     end
                 else
                     QBCore.Functions.DrawText3D(v.pos.x,v.pos.y, v.pos.z, vCode.Text.pickup..' ['..v.label..']')
