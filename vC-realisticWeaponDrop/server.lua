@@ -24,3 +24,9 @@ RegisterServerEvent('vC-realsticWeaponDrop:server:removeforEveryone', function(i
             end
     end
 end)
+
+RegisterServerEvent("vc-realisticWeaponDrop:server:removeItem", function(item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    Player.Functions.RemoveItem(item, 1)
+
+end)
