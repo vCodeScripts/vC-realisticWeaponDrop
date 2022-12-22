@@ -94,7 +94,7 @@ AddEventHandler('baseevents:onPlayerDied', function()
     
                 if QBCore.Shared.SplitStr(v.name, "_")[1] == "weapon" and GetHashKey(v.name) == weaponHash  then
                     TriggerServerEvent('vc-realisticWeaponDrop:server:removeItem', v.name)
-                    TriggerEvent('inventory:client:CheckWeapon')
+                    TriggerEvent('inventory:client:CheckWeapon', v.name)
                     TriggerServerEvent('vC-realisticWeaponDrop:server:syncforEveryone',v.name,v.info, weaponHash, pos)
                 end
             end
